@@ -1,0 +1,33 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    background-color: #17252A;
+    font-family: "Poppins";
+}
+
+nav {
+    background-color: #3AAFA9;
+    height: 7%;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 15px;
+}
+
+#title a{
+    font-family: "Montserrat";
+    text-decoration: none;
+    font-weight: Poppins;
+    color: black;
+}
+
+#nav-add-button {
+    cursor: pointer;
+    margin-right: 30px;
+}
