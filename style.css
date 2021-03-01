@@ -1,3 +1,9 @@
+:root {
+    --blue: #3AAFA9;
+    --deepblue: #2B7A78;
+    --white: #DEF2F1;
+}
+
 * {
     padding: 0;
     margin: 0;
@@ -11,9 +17,9 @@ body {
 }
 
 nav {
-    background-color: #3AAFA9;
+    background-color: var(--blue);
     height: 7%;
-    color: black;
+    color: var(--white);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -24,10 +30,83 @@ nav {
     font-family: "Montserrat";
     text-decoration: none;
     font-weight: Poppins;
-    color: black;
+    color: var(--white);
 }
 
 #nav-add-button {
     cursor: pointer;
     margin-right: 30px;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    height: 93%;
+}
+
+.book-card {
+    margin: 20px 0px;
+    border: 2px solid var(--deepblue);
+    border-radius: 10px;
+    color: var(--white);
+    text-align: center;
+    line-height: 1.4;
+    min-width: 250px;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s;
+}
+
+.book-card:hover {
+    box-shadow: 0px 0px 10px var(--blue);
+}
+
+.book-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+}
+
+
+.status-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 10px;
+}
+
+.book-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 32px;
+    width: 40%;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.book-button:hover {
+    transform: scale(1.1);
+}
+
+.book-button:active {
+    transform: scale(0.95);
+}
+
+.unfinished-button {
+    background-color: red;
+}
+
+.finished-button {
+    background-color: #52cc00;
+    
+}
+
+.delete-button {
+    background-color: gray;
+    margin: 0 auto;
+    margin-bottom: 10px;
 }
