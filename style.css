@@ -40,12 +40,13 @@ nav {
 
 main {
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
+    justify-content: flex-start;
     height: 93%;
 }
 
 .book-card {
-    margin: 20px 0px;
+    margin: 20px 50px;
     border: 2px solid var(--deepblue);
     border-radius: 10px;
     color: var(--white);
