@@ -15,17 +15,17 @@
         <div id="nav-add-button">Add Book</div>
     </nav>
     <main>
-        <div class="book-card">
+        <div class="book-card" data-index="a">
             <div class="book-info">
                 <h2 class="book-title">Harry Potter</h2>
                 <p class="author-name">JK Rowling</p>
                 <p class="page-count">300 Pages</p>
-                <p class="status">Unfinished</p>
+                <p class="status">Status: Unfinished</p>
             </div>
             <div class="card-buttons">
                 <div class="status-buttons">
-                    <div class="book-button unfinished-button">
-                        <img src="img/cross.png" alt="cross">
+                    <div class="book-button edit-button">
+                        <img src="img/edit.png" alt="cross">
                     </div>
                     <div class="book-button finished-button">
                         <img src="img/tick.png" alt="tickmark">
@@ -37,6 +37,11 @@
             </div>
         </div>
     </main>
+    <div id="popup-bg">
+        <div id="popup-content">
+            
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>

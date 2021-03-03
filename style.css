@@ -14,11 +14,12 @@ body {
     height: 100vh;
     background-color: #17252A;
     font-family: "Poppins";
+    font-size: 100%;
 }
 
 nav {
     background-color: var(--blue);
-    height: 7%;
+    height: 70px;
     color: var(--white);
     display: flex;
     justify-content: space-between;
@@ -42,26 +43,28 @@ main {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    height: 93%;
+    height: (100vh-70px);
 }
 
 .book-card {
     margin: 20px 50px;
     border: 2px solid var(--deepblue);
     border-radius: 10px;
-    color: var(--white);
+    color: #101010;
     text-align: center;
     line-height: 1.4;
     min-width: 250px;
-    height: 40%;
+    height: 350px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     transition: all 0.3s;
+    background-color: #65ccb8;
 }
 
 .book-card:hover {
-    box-shadow: 0px 0px 10px var(--blue);
+    box-shadow: 0px 0px 12px var(--blue);
+    transform: scale(1.03);
 }
 
 .book-info {
@@ -69,8 +72,15 @@ main {
     flex-direction: column;
     justify-content: space-around;
     height: 100%;
+    font-family: "Dancing Script";
+    font-weight: bold;
+    font-size: 18px;
 }
 
+.card-buttons {
+    display: block;
+    transition: all 0.5s;
+}
 
 .status-buttons {
     display: flex;
@@ -87,6 +97,7 @@ main {
     border-radius: 20px;
     cursor: pointer;
     transition: all 0.3s;
+    user-select: none;
 }
 
 .book-button:hover {
@@ -102,12 +113,33 @@ main {
 }
 
 .finished-button {
-    background-color: #52cc00;
+    background-color: rgba(33, 197, 28, 0.7);
     
 }
 
+.edit-button {
+    background-color: rgba(248, 246, 95, 0.7);
+}
+
 .delete-button {
-    background-color: gray;
+    background-color: rgb(128, 128, 128, 0.7);
     margin: 0 auto;
     margin-bottom: 10px;
+}
+
+#popup-bg {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+#popup-content {
+    background: white;
+    height: 400px;
+    width: 600px;
 }
