@@ -127,6 +127,7 @@ main {
     margin-bottom: 10px;
 }
 
+/* popup styles */
 #popup-bg {
     height: 100%;
     width: 100%;
@@ -140,6 +141,86 @@ main {
 
 #popup-content {
     background: white;
-    height: 400px;
-    width: 600px;
+    height: 550px;
+    width: 700px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+}
+
+#close-button {
+    position: absolute;
+    right: 5px;
+    top: -10px;
+    font-size: 30px;
+    transform: rotate(45deg);
+    cursor: pointer;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+.form-div {
+    width: 50%;
+    position: relative;
+    height: 50px;
+    overflow: hidden;
+    margin: 10px 0px;
+}
+
+.form-div input {
+    width: 100%;
+    height: 100%;
+    color: #595f6e;
+    padding-top: 20px;
+    border: none;
+    outline: none;
+}
+
+.form-div label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    border-bottom: 1px solid black;
+}
+
+.form-div label::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    height: 100%;
+    width: 100%;
+    border-bottom: 3px solid #5fa8d3;
+    transform: translateX(-100%);
+    transition: all 0.3s ease;
+}
+
+.span {
+    position: absolute;
+    bottom: 5px;
+    left: 0px;
+    transition: all 0.3s ease;
+}
+
+.form-div input:focus + .label .span,
+.form-div input:valid + .label .span {
+    transform: translateY(-130%);
+    color: #5fa8d3;
+    font-size: 14px;
+}
+
+.form-div input:focus + .label:after,
+.form-div input:valid + .label:after {
+    transform: translateX(0%);
 }
