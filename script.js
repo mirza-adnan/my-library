@@ -1,6 +1,10 @@
-let myLibrary = [];
-saveStorage()
-myLibrary = JSON.parse(localStorage.getItem("myLibrary"));
+let myLibrary = JSON.parse(localStorage.getItem("myLibrary"));
+if (!myLibrary) {
+    myLibrary = [];  // so that myLibrary never becomes null
+}
+
+
+
 
 let Book = function(title, author, pages, read) {
     this.title = title;
@@ -85,80 +89,82 @@ const main = document.querySelector("main");
 const addCard = document.querySelector("#add-button");
 
 function createBookCard() {
-    myLibrary.forEach(book => {
-        const bookCard = document.createElement("div");
-        bookCard.classList.add("book-card");
-
-        const bookInfo = document.createElement("div");
-        bookInfo.classList.add("book-info");
-
-        const bookTitle = document.createElement("h2");
-        const bookAuthor = document.createElement("p");
-        const pageCount = document.createElement("p")
-        const status = document.createElement("p")
-
-        const cardButtons = document.createElement("div");
-        cardButtons.classList.add("book-buttons");
-        
-        const editStatus = document.createElement("div");
-        editStatus.classList.add("edit-status");
-
-        const editButton = document.createElement("div");
-        editButton.classList.add("book-button", "edit-button");
-        const editImage = document.createElement("img");
-        editImage.setAttribute("src", "img/edit.png")
-        editButton.appendChild(editImage);
-
-        const finishedButton = document.createElement("div");
-        finishedButton.classList.add("book-button", "finished-button");
-        const finishedImage = document.createElement("img");
-        finishedImage.setAttribute("src", "img/tick.png");
-        finishedButton.appendChild(finishedImage);
-
-        const deleteButton = document.createElement("div");
-        deleteButton.classList.add("book-button", "delete-button");
-        const deleteImage = document.createElement("img");
-        deleteImage.setAttribute("src", "img/delete.png");
-        deleteButton.appendChild(deleteImage);
-
-        editStatus.appendChild(editButton);
-        editStatus.appendChild(finishedButton);
-        
-        cardButtons.appendChild(editStatus);
-        cardButtons.appendChild(deleteButton);
-        
-        bookInfo.appendChild(bookTitle);
-        bookInfo.appendChild(bookAuthor);
-        bookInfo.appendChild(pageCount);
-        bookInfo.appendChild(status);
-
-        bookTitle.textContent = book.title;
-        if (book.author) {
-            bookAuthor.textContent = book.author;
-        } else {
-            bookAuthor.textContent = "Unknown Author";
-        }
+    if (myLibrary) {
+        myLibrary.forEach(book => {
+            const bookCard = document.createElement("div");
+            bookCard.classList.add("book-card");
     
-        if (book.pages) {
-            pageCount.textContent = `${book.pages} Pages`
-        } else {
-            pageCount.textContent = "Page Count Unknown"
-        }
+            const bookInfo = document.createElement("div");
+            bookInfo.classList.add("book-info");
     
-        if (book.read) {
-            status.textContent = "Finished";
-        } else {
-            status.textContent = "Unfinished";
-        }
-
-        bookCard.appendChild(bookInfo);
-        bookCard.appendChild(cardButtons)
-
-        main.insertBefore(bookCard, addCard)
+            const bookTitle = document.createElement("h2");
+            const bookAuthor = document.createElement("p");
+            const pageCount = document.createElement("p")
+            const status = document.createElement("p")
+    
+            const cardButtons = document.createElement("div");
+            cardButtons.classList.add("book-buttons");
+            
+            const editStatus = document.createElement("div");
+            editStatus.classList.add("edit-status");
+    
+            const editButton = document.createElement("div");
+            editButton.classList.add("book-button", "edit-button");
+            const editImage = document.createElement("img");
+            editImage.setAttribute("src", "img/edit.png")
+            editButton.appendChild(editImage);
+    
+            const finishedButton = document.createElement("div");
+            finishedButton.classList.add("book-button", "finished-button");
+            const finishedImage = document.createElement("img");
+            finishedImage.setAttribute("src", "img/tick.png");
+            finishedButton.appendChild(finishedImage);
+    
+            const deleteButton = document.createElement("div");
+            deleteButton.classList.add("book-button", "delete-button");
+            const deleteImage = document.createElement("img");
+            deleteImage.setAttribute("src", "img/delete.png");
+            deleteButton.appendChild(deleteImage);
+    
+            editStatus.appendChild(editButton);
+            editStatus.appendChild(finishedButton);
+            
+            cardButtons.appendChild(editStatus);
+            cardButtons.appendChild(deleteButton);
+            
+            bookInfo.appendChild(bookTitle);
+            bookInfo.appendChild(bookAuthor);
+            bookInfo.appendChild(pageCount);
+            bookInfo.appendChild(status);
+    
+            bookTitle.textContent = book.title;
+            if (book.author) {
+                bookAuthor.textContent = book.author;
+            } else {
+                bookAuthor.textContent = "Unknown Author";
+            }
         
-    })
+            if (book.pages) {
+                pageCount.textContent = `${book.pages} Pages`
+            } else {
+                pageCount.textContent = "Page Count Unknown"
+            }
+        
+            if (book.read) {
+                status.textContent = "Finished";
+            } else {
+                status.textContent = "Unfinished";
+            }
     
-
+            bookCard.appendChild(bookInfo);
+            bookCard.appendChild(cardButtons)
+    
+            main.insertBefore(bookCard, addCard)
+            
+        })
+    }
+    
 }
 
+createBookCard()
 
