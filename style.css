@@ -163,7 +163,7 @@ main {
     background-color: rgba(0, 0, 0, 0.7);
     position: absolute;
     top: 0;
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
 }
@@ -278,6 +278,7 @@ form {
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    user-select: none;
 }
 
 .submit:hover {
@@ -286,5 +287,6 @@ form {
 
 .submit:active {
     cursor: default;
+    box-shadow: none;
 }
 
