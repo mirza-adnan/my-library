@@ -36,11 +36,14 @@
                 </div>
             </div>
         </div>
+        <div id="add-button">
+            <img id="add-img" src="img/add.png" alt="add button">
+        </div>
     </main>
     <div id="popup-bg">
         <div id="popup-content">
             <p id="close-button">+</p>
-            <h2>New Book</h2>
+            <h2 id="popup-title">New Book</h2>
             <form>
                 <div id="title" class="form-div">
                     <input type="text" id="title-input" class="input" name="title" required autocomplete="off">
@@ -51,8 +54,12 @@
                     <label for="author" class="label" id="author-label"><span id="author-content" class="span">Author</span></label>
                 </div>
                 <div id="pages" class="form-div">
-                    <input type="text" id="pages-input" class="input" name="pages" required autocomplete="off">
+                    <input type="number" min="0" id="pages-input" class="input" name="pages" required autocomplete="off">
                     <label for="pages" class="label" id="pages-label"><span id="pages-content" class="span">Number of Pages</span></label>
+                </div>
+                <div id="read-status">
+                    <label for="read-status">Finished</label>
+                    <input type="checkbox">
                 </div>
             </form>
         </div>
