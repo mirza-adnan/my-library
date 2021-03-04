@@ -34,14 +34,12 @@ const finished = document.querySelector("input[type='checkbox']")
 // function for validating the form
 function validateForm() {
     if (title.value === "") {
-        resetPopup()
         alert("You must enter a book title");
         return false;
         
     }
 
     if (Number(pages.value) < 0) {
-        resetPopup()
         alert("Number of pages cannot be negative");
         return false;
     }
@@ -55,6 +53,16 @@ function resetForm() {
     pages.value = "";
     finished.checked = false;
 }
+
+// function for submit button
+const submitButton = document.querySelector(".submit");
+submitButton.addEventListener("click", function() {
+    if (validateForm()) {
+        closeButton.click()
+    } else {
+        resetForm()
+    }
+})
 
 
 
