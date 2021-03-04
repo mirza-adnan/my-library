@@ -58,11 +58,21 @@ function resetForm() {
 const submitButton = document.querySelector(".submit");
 submitButton.addEventListener("click", function() {
     if (validateForm()) {
+        createBookObject()
+        saveStorage()
         closeButton.click()
     } else {
         resetForm()
     }
 })
 
+function createBookObject() {
+    const newBook = new Book(title.value, author.value, pages.value, finished.checked)
+    myLibrary.push(newBook);
+}
+
+function saveStorage() {
+    localStorage.setItem("myLibrary", JSON.stringify(myLibrary))
+} 
 
 
