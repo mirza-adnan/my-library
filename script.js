@@ -31,17 +31,30 @@ const author = document.querySelector("#author-input");
 const pages = document.querySelector("#pages-input");
 const finished = document.querySelector("input[type='checkbox']")
 
-//validating the form
+// function for validating the form
 function validateForm() {
     if (title.value === "") {
+        resetPopup()
         alert("You must enter a book title");
         return false;
+        
     }
 
-    if (Number(pages.textContent) < 0) {
+    if (Number(pages.value) < 0) {
+        resetPopup()
         alert("Number of pages cannot be negative");
         return false;
     }
     return true
 }
+
+// function for resetting the popup
+function resetForm() {
+    title.value = "";
+    author.value = "";
+    pages.value = "";
+    finished.checked = false;
+}
+
+
 
