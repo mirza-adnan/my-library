@@ -83,7 +83,7 @@ main {
     transition: all 0.5s;
 }
 
-.status-buttons {
+.edit-status {
     display: flex;
     justify-content: space-evenly;
     margin-bottom: 10px;
