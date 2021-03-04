@@ -25,4 +25,23 @@ function togglePopup(display) {
     popup.style.display = display;
 }
 
+// reference to all the book inputs
+const title = document.querySelector("#title-input");
+const author = document.querySelector("#author-input");
+const pages = document.querySelector("#pages-input");
+const finished = document.querySelector("input[type='checkbox']")
+
+//validating the form
+function validateForm() {
+    if (title.value === "") {
+        alert("You must enter a book title");
+        return false;
+    }
+
+    if (Number(pages.textContent) < 0) {
+        alert("Number of pages cannot be negative");
+        return false;
+    }
+    return true
+}
 
