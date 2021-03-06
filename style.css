@@ -79,7 +79,9 @@ main {
 }
 
 .card-buttons {
-    display: block;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     transition: all 0.5s;
 }
 
@@ -99,6 +101,7 @@ main {
     cursor: pointer;
     transition: all 0.3s;
     user-select: none;
+    margin: 10px;
 }
 
 .book-button:hover {

@@ -3,9 +3,6 @@ if (!myLibrary) {
     myLibrary = [];  // so that myLibrary never becomes null
 }
 
-
-
-
 let Book = function(title, author, pages, read) {
     this.title = title;
     this.author = author;
@@ -64,11 +61,12 @@ function resetForm() {
 const submitButton = document.querySelector(".submit");
 submitButton.addEventListener("click", function() {
     if (validateForm()) {
-        createBookObject()
-        resetForm()
-        saveStorage()
-        closeButton.click()
-        createBookCard()
+        createBookObject()  // creating a book object and pushing it to the end of the array
+        resetForm()  // resetting the inputs of the popup
+        saveStorage()  // saving the new array in the local storage
+        removeAllBooks()  // first we remove all the existing books from the display so there arent duplicates 
+        closeButton.click()  // closing the popup
+        createBookCard()  // creating a new card to display the book
     } else {
         resetForm()
     }
@@ -90,9 +88,11 @@ const addCard = document.querySelector("#add-button");
 
 function createBookCard() {
     if (myLibrary) {
+        let index = 0;
         myLibrary.forEach(book => {
             const bookCard = document.createElement("div");
             bookCard.classList.add("book-card");
+            bookCard.setAttribute("data-index", String(index))
     
             const bookInfo = document.createElement("div");
             bookInfo.classList.add("book-info");
@@ -103,10 +103,7 @@ function createBookCard() {
             const status = document.createElement("p")
     
             const cardButtons = document.createElement("div");
-            cardButtons.classList.add("book-buttons");
-            
-            const editStatus = document.createElement("div");
-            editStatus.classList.add("edit-status");
+            cardButtons.classList.add("card-buttons");
     
             const editButton = document.createElement("div");
             editButton.classList.add("book-button", "edit-button");
@@ -126,10 +123,8 @@ function createBookCard() {
             deleteImage.setAttribute("src", "img/delete.png");
             deleteButton.appendChild(deleteImage);
     
-            editStatus.appendChild(editButton);
-            editStatus.appendChild(finishedButton);
-            
-            cardButtons.appendChild(editStatus);
+            cardButtons.appendChild(editButton);
+            cardButtons.appendChild(finishedButton);
             cardButtons.appendChild(deleteButton);
             
             bookInfo.appendChild(bookTitle);
@@ -161,10 +156,21 @@ function createBookCard() {
     
             main.insertBefore(bookCard, addCard)
             
+            index += 1;
+            
         })
     }
     
 }
 
 createBookCard()
+
+function removeAllBooks() {
+    const books = document.querySelectorAll(".book-card");
+    
+    books.forEach(book => {
+        book.remove()
+    })
+}
+
 
