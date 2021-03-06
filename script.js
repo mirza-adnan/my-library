@@ -151,9 +151,9 @@ function createBookCard() {
             }
         
             if (book.read) {
-                status.textContent = "Finished";
+                status.textContent = "Status: Finished";
             } else {
-                status.textContent = "Unfinished";
+                status.textContent = "Status: Unfinished";
             }
     
             bookCard.appendChild(bookInfo);
@@ -168,6 +168,7 @@ function createBookCard() {
         })
 
         deleteEvent()  // adding event listeners to the delete button of new books
+        hoverEffect()
     }
     
 }
@@ -192,5 +193,20 @@ function deleteEvent() {
     })
 }
 
+function hoverEffect() {
+    const bookCard = document.querySelectorAll(".book-card");
+    bookCard.forEach(card => {
+        card.addEventListener("mouseover", function() {
+            const buttons = card.querySelector(".card-buttons");
+            buttons.style.opacity = "1";
+        })
+        card.addEventListener("mouseout", function() {
+            const buttons = card.querySelector(".card-buttons");
+            buttons.style.opacity = "0";
+        })
+    })
+}
+
 createBookCard()
 deleteEvent()
+hoverEffect()
