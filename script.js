@@ -61,16 +61,20 @@ function resetForm() {
 const submitButton = document.querySelector(".submit");
 submitButton.addEventListener("click", function() {
     if (validateForm()) {
-        createBookObject()  // creating a book object and pushing it to the end of the array
-        resetForm()  // resetting the inputs of the popup
-        saveStorage()  // saving the new array in the local storage
-        removeAllBooks()  // first we remove all the existing books from the display so there arent duplicates 
-        closeButton.click()  // closing the popup
-        createBookCard()  // creating a new card to display the book
+        createBookObject();  // creating a book object and pushing it to the end of the array
+        resetForm();  // resetting the inputs of the popup
+        saveRemoveCreate()
+        closeButton.click();  // closing the popup
     } else {
         resetForm()
     }
 })
+
+function saveRemoveCreate() {
+    saveStorage();  // saving the new array in the local storage
+    removeAllBooks();  // first we remove all the existing books from the display so there arent duplicates
+    createBookCard()  // creating a new card to display the book 
+}
 
 // function to create book objects
 function createBookObject() {
@@ -80,6 +84,7 @@ function createBookObject() {
 
 function saveStorage() {
     localStorage.setItem("myLibrary", JSON.stringify(myLibrary))
+    myLibrary = JSON.parse(localStorage.getItem("myLibrary"));
 }
 
 // creating book cards
@@ -155,22 +160,37 @@ function createBookCard() {
             bookCard.appendChild(cardButtons)
     
             main.insertBefore(bookCard, addCard)
+
+            deleteEvent()  // adding event listeners to the delete button of new books
             
             index += 1;
             
         })
+
+        deleteEvent()  // adding event listeners to the delete button of new books
     }
     
 }
 
-createBookCard()
-
 function removeAllBooks() {
     const books = document.querySelectorAll(".book-card");
-    
     books.forEach(book => {
         book.remove()
     })
 }
 
+// delete button
+function deleteEvent() {
+    const deleteButton = document.querySelectorAll(".delete-button");
+    deleteButton.forEach(btn => {
+        btn.addEventListener("click", function() {
+            const parent = btn.parentNode.parentNode;
+            const parentIndex = parent.getAttribute("data-index");
+            myLibrary.splice(Number(parentIndex), 1);
+            saveRemoveCreate()
+        })
+    })
+}
 
+createBookCard()
+deleteEvent()
