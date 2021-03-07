@@ -208,5 +208,3 @@ function hoverEffect() {
 }
 
 createBookCard()
-deleteEvent()
-hoverEffect()
