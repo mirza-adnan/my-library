@@ -106,6 +106,11 @@ function createBookCard() {
             const bookAuthor = document.createElement("p");
             const pageCount = document.createElement("p")
             const status = document.createElement("p")
+
+            bookTitle.classList.add("book-title");
+            bookAuthor.classList.add("book-author");
+            pageCount.classList.add("page-count");
+            status.classList.add("status");
     
             const cardButtons = document.createElement("div");
             cardButtons.classList.add("card-buttons");
@@ -116,11 +121,20 @@ function createBookCard() {
             editImage.setAttribute("src", "img/edit.png")
             editButton.appendChild(editImage);
     
-            const finishedButton = document.createElement("div");
-            finishedButton.classList.add("book-button", "finished-button");
-            const finishedImage = document.createElement("img");
-            finishedImage.setAttribute("src", "img/tick.png");
-            finishedButton.appendChild(finishedImage);
+            const statusButton = document.createElement("div");
+            
+            if (book.read) {
+                statusButton.classList.add("book-button", "status-button", "unfinished-button");
+                const finishedImage = document.createElement("img");
+                finishedImage.setAttribute("src", "img/cross.png");
+                statusButton.appendChild(finishedImage);
+            } else {
+                statusButton.classList.add("book-button", "status-button", "finished-button");
+                const finishedImage = document.createElement("img");
+                finishedImage.setAttribute("src", "img/tick.png");
+                statusButton.appendChild(finishedImage);
+            }
+            
     
             const deleteButton = document.createElement("div");
             deleteButton.classList.add("book-button", "delete-button");
@@ -129,7 +143,7 @@ function createBookCard() {
             deleteButton.appendChild(deleteImage);
     
             cardButtons.appendChild(editButton);
-            cardButtons.appendChild(finishedButton);
+            cardButtons.appendChild(statusButton);
             cardButtons.appendChild(deleteButton);
             
             bookInfo.appendChild(bookTitle);
@@ -169,6 +183,7 @@ function createBookCard() {
 
         deleteEvent()  // adding event listeners to the delete button of new books
         hoverEffect()
+        toggleStatus()
     }
     
 }
@@ -205,6 +220,32 @@ function hoverEffect() {
             buttons.style.opacity = "0";
         })
     })
+}
+
+function toggleStatus() {
+    const finishedButton = document.querySelectorAll(".status-button");
+    finishedButton.forEach(btn => {
+        const book = btn.parentNode.parentNode;
+        const statusButton = book.querySelector(".status-button");
+        const status = book.querySelector(".status");
+        const bookIndex = Number(book.getAttribute("data-index"));
+        const statusImg = statusButton.querySelector("img");
+        
+        btn.addEventListener("click", function() {
+            statusButton.classList.toggle("finished-button");
+            statusButton.classList.toggle("unfinished-button")
+            if (myLibrary[bookIndex].read) {
+                status.textContent = "Status: Unfinished";
+                statusImg.setAttribute("src", "img/tick.png")
+                myLibrary[bookIndex].read = false;
+            } else {
+                status.textContent = "Status: Finished"
+                statusImg.setAttribute("src", "img/cross.png")
+                myLibrary[bookIndex].read = true;
+            }
+        })
+
+    });
 }
 
 createBookCard()

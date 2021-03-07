@@ -114,7 +114,7 @@ main {
 }
 
 .unfinished-button {
-    background-color: red;
+    background-color: rgba(228, 77, 77, 0.9);
 }
 
 .finished-button {
