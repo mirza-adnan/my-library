@@ -11,11 +11,6 @@ let Book = function(title, author, pages, read) {
     this.read = read;
 }
 
-Book.prototype.changeStatus = function() {
-    this.read = !this.read;
-}
-
-
 createBookCard(); // creating the books when the page is first loaded
 
 // opening and closing the popup
