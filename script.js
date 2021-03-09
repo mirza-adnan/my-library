@@ -3,6 +3,7 @@ if (!myLibrary) {
     myLibrary = [];  // so that myLibrary never becomes null
 }
 
+// constructor
 let Book = function(title, author, pages, read) {
     this.title = title;
     this.author = author;
@@ -11,21 +12,23 @@ let Book = function(title, author, pages, read) {
 }
 
 Book.prototype.changeStatus = function() {
-    if (this.read) {
-        this.read = false;
-    } else {
-        this.read = true;
-    }
+    this.read = !this.read;
 }
 
-createBookCard()
+
+createBookCard(); // creating the books when the page is first loaded
 
 // opening and closing the popup
-const popup = document.querySelector("#popup-bg")
+function togglePopup(display) {
+    popup.style.display = display;
+}
+
+const popup = document.querySelector("#popup-bg");
 const addButtons = document.querySelectorAll(".add");
 addButtons.forEach(button => {
     button.addEventListener("click", function() {
         togglePopup("flex");
+        window.scrollTo(0, 0);
     })
 })
 
@@ -35,9 +38,7 @@ closeButton.addEventListener("click", function() {
     resetForm();
 })
 
-function togglePopup(display) {
-    popup.style.display = display;
-}
+
 
 // reference to all the book inputs
 const titleInput = document.querySelector("#title-input");
@@ -58,7 +59,7 @@ function validateForm() {
         alert("Number of pages cannot be negative");
         return false;
     }
-    return true
+    return true;
 }
 
 // function for resetting the popup
@@ -71,8 +72,35 @@ function resetForm() {
     editMode = false;
 }
 
-let editMode;
-let editIndex;
+// edit function
+let editMode;  // this is to differentiate between adding a new book and editing an existing book
+let editIndex;  // to carry the index of the book object that is to be editted
+
+// function to add event listeners to all the edit buttons
+function editEvent() {
+    const editButton = document.querySelectorAll(".edit-button");
+    editButton.forEach(btn => {
+        btn.addEventListener("click", function() {
+            editMode = true;
+            const book = btn.parentNode.parentNode;
+            const bookIndex = Number(book.getAttribute("data-index"));
+            const bookObject = myLibrary[bookIndex];
+
+            popUpTitle.textContent = "Edit Book";
+
+            titleInput.value = bookObject.title;
+            authorInput.value = bookObject.author;
+            pagesInput.value = bookObject.pages;
+            if (bookObject.read) {
+                finishedInput.checked = true;
+            } else {
+                finishedInput.checked = false;
+            }
+            togglePopup("flex")
+            editIndex = bookIndex;
+        })
+    })
+}
 
 function editObject(obj) {
     obj.title = titleInput.value;
@@ -81,44 +109,53 @@ function editObject(obj) {
     obj.read = finishedInput.checked;
 }
 
+// function to create book objects
+function createBookObject() {
+    const newBook = new Book(titleInput.value, authorInput.value, pagesInput.value, finishedInput.checked);
+    myLibrary.push(newBook);
+}
+
 // function for submit button
 const submitButton = document.querySelector(".submit");
 submitButton.addEventListener("click", function() {
     if (validateForm()) {
-        if (editMode) {
+        
+        if (editMode) {  // this will be executed if you are editing an existing book
             bookObject = myLibrary[editIndex];
             editObject(bookObject);
             closeButton.click();
             saveRemoveCreate();
-        } else {
-            createBookObject();  // creating a book object and pushing it to the end of the array
-            saveRemoveCreate()
-            closeButton.click();  // closing the popup and reseting the inputs
+        } else {  // this will be executed if you are trying to add a new book
+            createBookObject();
+            saveRemoveCreate();
+            closeButton.click();
         }
 
     } else {
-        resetForm()
+        resetForm();
     }
 })
 
 function saveRemoveCreate() {
-    saveStorage();  // saving the new array in the local storage
+    saveStorage();  // saving the new array in the local storage and getting the saved array
     removeAllBooks();  // first we remove all the existing books from the display so there arent duplicates
-    createBookCard()  // creating a new card to display the book 
+    createBookCard(); // creating a new card for every object in the array
 }
 
-// function to create book objects
-function createBookObject() {
-    const newBook = new Book(titleInput.value, authorInput.value, pagesInput.value, finishedInput.checked)
-    myLibrary.push(newBook);
-}
+
 
 function saveStorage() {
     localStorage.setItem("myLibrary", JSON.stringify(myLibrary))
     myLibrary = JSON.parse(localStorage.getItem("myLibrary"));
 }
 
-// creating book cards
+function removeAllBooks() {
+    const books = document.querySelectorAll(".book-card");
+    books.forEach(book => {
+        book.remove();
+    })
+}
+
 function createBookCard() {
     const main = document.querySelector("main");
     const addCard = document.querySelector("#add-button");
@@ -127,15 +164,15 @@ function createBookCard() {
         myLibrary.forEach(book => {
             const bookCard = document.createElement("div");
             bookCard.classList.add("book-card");
-            bookCard.setAttribute("data-index", String(index))
+            bookCard.setAttribute("data-index", String(index));
     
             const bookInfo = document.createElement("div");
             bookInfo.classList.add("book-info");
     
             const bookTitle = document.createElement("h2");
             const bookAuthor = document.createElement("p");
-            const pageCount = document.createElement("p")
-            const status = document.createElement("p")
+            const pageCount = document.createElement("p");
+            const status = document.createElement("p");
 
             bookTitle.classList.add("book-title");
             bookAuthor.classList.add("book-author");
@@ -189,9 +226,9 @@ function createBookCard() {
             }
         
             if (book.pages) {
-                pageCount.textContent = `Pages: ${book.pages}`
+                pageCount.textContent = `Pages: ${book.pages}`;
             } else {
-                pageCount.textContent = "Pages: No Idea"
+                pageCount.textContent = "Pages: No Idea";
             }
         
             if (book.read) {
@@ -201,31 +238,24 @@ function createBookCard() {
             }
     
             bookCard.appendChild(bookInfo);
-            bookCard.appendChild(cardButtons)
+            bookCard.appendChild(cardButtons);
     
-            main.insertBefore(bookCard, addCard)
+            main.insertBefore(bookCard, addCard);
 
             
             index += 1;
             
         })
 
-        deleteEvent()  // adding event listeners to the delete button of new books
-        hoverEffect()
-        toggleStatus()
-        editEvent()
+        deleteEvent();
+        hoverEffect();  
+        toggleStatus();
+        editEvent();
     }
     
 }
 
-function removeAllBooks() {
-    const books = document.querySelectorAll(".book-card");
-    books.forEach(book => {
-        book.remove()
-    })
-}
-
-// delete button
+// adding event listeners to delete buttons to delete a book card
 function deleteEvent() {
     const deleteButton = document.querySelectorAll(".delete-button");
     deleteButton.forEach(btn => {
@@ -233,11 +263,12 @@ function deleteEvent() {
             const parent = btn.parentNode.parentNode;
             const parentIndex = parent.getAttribute("data-index");
             myLibrary.splice(Number(parentIndex), 1);
-            saveRemoveCreate()
+            saveRemoveCreate();
         })
     })
 }
 
+// making the buttons appear when hovering over the book card
 function hoverEffect() {
     const bookCard = document.querySelectorAll(".book-card");
     bookCard.forEach(card => {
@@ -252,6 +283,7 @@ function hoverEffect() {
     })
 }
 
+// adding event listeners to status buttons to toggle between finished and unfinished state
 function toggleStatus() {
     const finishedButton = document.querySelectorAll(".status-button");
     finishedButton.forEach(btn => {
@@ -263,14 +295,14 @@ function toggleStatus() {
             const statusImg = statusButton.querySelector("img");
 
             statusButton.classList.toggle("finished-button");
-            statusButton.classList.toggle("unfinished-button")
+            statusButton.classList.toggle("unfinished-button");
             if (myLibrary[bookIndex].read) {
                 status.textContent = "Status: Unfinished";
-                statusImg.setAttribute("src", "img/tick.png")
+                statusImg.setAttribute("src", "img/tick.png");
                 myLibrary[bookIndex].read = false;
             } else {
-                status.textContent = "Status: Finished"
-                statusImg.setAttribute("src", "img/cross.png")
+                status.textContent = "Status: Finished";
+                statusImg.setAttribute("src", "img/cross.png");
                 myLibrary[bookIndex].read = true;
             }
         })
@@ -278,39 +310,16 @@ function toggleStatus() {
     });
 }
 
-function editEvent() {
-    const editButton = document.querySelectorAll(".edit-button");
-    editButton.forEach(btn => {
-        btn.addEventListener("click", function() {
-            editMode = true;
-            const book = btn.parentNode.parentNode;
-            const bookIndex = Number(book.getAttribute("data-index"));
-            const bookObject = myLibrary[bookIndex];
 
-            popUpTitle.textContent = "Edit Book";
-
-            titleInput.value = bookObject.title;
-            authorInput.value = bookObject.author;
-            pagesInput.value = bookObject.pages;
-            if (bookObject.read) {
-                finishedInput.checked = true;
-            } else {
-                finishedInput.checked = false;
-            }
-            togglePopup("flex")
-            editIndex = bookIndex;
-        })
-    })
-}
 
 // keyboard shortcuts
 window.addEventListener("keydown", function(e) {
     if (popup.style.display === "flex") {
         if (e.key === "Enter") {
-            submitButton.click()
+            submitButton.click();
         }
         if (e.key === "Escape") {
-            closeButton.click()
+            closeButton.click();
         }
     }
 })
