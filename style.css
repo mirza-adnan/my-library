@@ -30,7 +30,7 @@ nav {
 #title a{
     font-family: "Montserrat", sans-serif;
     text-decoration: none;
-    font-weight: Poppins;
+    font-family: Poppins;
     color: var(--white);
 }
 
@@ -136,7 +136,7 @@ main {
 
 /* Styling for Add button */
 #add-button {
-    width: 250px;
+    min-width: 250px;
     height: 300px;
     margin: 20px 50px;
     display: flex;
@@ -296,3 +296,33 @@ form {
     box-shadow: none;
 }
 
+@media screen and (max-width: 480px) {
+    #nav-add-button {
+        margin-right: 10px;
+    }
+
+    #popup-content {
+        width: 600px;
+        height: 500px;
+    }
+}
+
+@media screen and (max-width: 300px) {
+    nav {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 270px) {
+    .book-card {
+        min-width: 200px;
+    }
+
+    .book-info {
+        font-size: 18px;
+    }
+
+    #add-button {
+        min-width: 200px;
+    }
+}
