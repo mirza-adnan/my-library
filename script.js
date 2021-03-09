@@ -10,6 +10,16 @@ let Book = function(title, author, pages, read) {
     this.read = read;
 }
 
+Book.prototype.changeStatus = function() {
+    if (this.read) {
+        this.read = false;
+    } else {
+        this.read = true;
+    }
+}
+
+createBookCard()
+
 // opening and closing the popup
 const popup = document.querySelector("#popup-bg")
 const addButtons = document.querySelectorAll(".add");
@@ -29,20 +39,20 @@ function togglePopup(display) {
 }
 
 // reference to all the book inputs
-const title = document.querySelector("#title-input");
-const author = document.querySelector("#author-input");
-const pages = document.querySelector("#pages-input");
-const finished = document.querySelector("input[type='checkbox']")
+const titleInput = document.querySelector("#title-input");
+const authorInput = document.querySelector("#author-input");
+const pagesInput = document.querySelector("#pages-input");
+const finishedInput = document.querySelector("input[type='checkbox']")
 
 // function for validating the form
 function validateForm() {
-    if (title.value === "") {
+    if (titleInput.value === "") {
         alert("You must enter a book title");
         return false;
         
     }
 
-    if (Number(pages.value) < 0) {
+    if (Number(pagesInput.value) < 0) {
         alert("Number of pages cannot be negative");
         return false;
     }
@@ -51,10 +61,10 @@ function validateForm() {
 
 // function for resetting the popup
 function resetForm() {
-    title.value = "";
-    author.value = "";
-    pages.value = "";
-    finished.checked = false;
+    titleInput.value = "";
+    authorInput.value = "";
+    pagesInput.value = "";
+    finishedInput.checked = false;
 }
 
 // function for submit button
@@ -78,7 +88,7 @@ function saveRemoveCreate() {
 
 // function to create book objects
 function createBookObject() {
-    const newBook = new Book(title.value, author.value, pages.value, finished.checked)
+    const newBook = new Book(titleInput.value, authorInput.value, pagesInput.value, finishedInput.checked)
     myLibrary.push(newBook);
 }
 
@@ -88,10 +98,9 @@ function saveStorage() {
 }
 
 // creating book cards
-const main = document.querySelector("main");
-const addCard = document.querySelector("#add-button");
-
 function createBookCard() {
+    const main = document.querySelector("main");
+    const addCard = document.querySelector("#add-button");
     if (myLibrary) {
         let index = 0;
         myLibrary.forEach(book => {
@@ -248,4 +257,4 @@ function toggleStatus() {
     });
 }
 
-createBookCard()
+
