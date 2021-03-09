@@ -32,6 +32,7 @@ addButtons.forEach(button => {
 const closeButton = document.querySelector("#close-button");
 closeButton.addEventListener("click", function() {
     togglePopup("none");
+    resetForm();
 })
 
 function togglePopup(display) {
@@ -67,18 +68,34 @@ function resetForm() {
     pagesInput.value = "";
     finishedInput.checked = false;
     popUpTitle.textContent = "New Book";
+    editMode = false;
 }
 
 let editMode;
+let editIndex;
+
+function editObject(obj) {
+    obj.title = titleInput.value;
+    obj.author = authorInput.value;
+    obj.pages = pagesInput.value;
+    obj.read = finishedInput.checked;
+}
 
 // function for submit button
 const submitButton = document.querySelector(".submit");
 submitButton.addEventListener("click", function() {
     if (validateForm()) {
-        createBookObject();  // creating a book object and pushing it to the end of the array
-        resetForm();  // resetting the inputs of the popup
-        saveRemoveCreate()
-        closeButton.click();  // closing the popup
+        if (editMode) {
+            bookObject = myLibrary[editIndex];
+            editObject(bookObject);
+            closeButton.click();
+            saveRemoveCreate();
+        } else {
+            createBookObject();  // creating a book object and pushing it to the end of the array
+            saveRemoveCreate()
+            closeButton.click();  // closing the popup and reseting the inputs
+        }
+
     } else {
         resetForm()
     }
@@ -166,15 +183,15 @@ function createBookCard() {
     
             bookTitle.textContent = book.title;
             if (book.author) {
-                bookAuthor.textContent = book.author;
+                bookAuthor.textContent = `Author: ${book.author}`;
             } else {
-                bookAuthor.textContent = "Unknown Author";
+                bookAuthor.textContent = "Author: No Idea";
             }
         
             if (book.pages) {
-                pageCount.textContent = `${book.pages} Pages`
+                pageCount.textContent = `Pages: ${book.pages}`
             } else {
-                pageCount.textContent = "Page Count Unknown"
+                pageCount.textContent = "Pages: No Idea"
             }
         
             if (book.read) {
@@ -188,7 +205,6 @@ function createBookCard() {
     
             main.insertBefore(bookCard, addCard)
 
-            deleteEvent()  // adding event listeners to the delete button of new books
             
             index += 1;
             
@@ -268,7 +284,6 @@ function editEvent() {
         btn.addEventListener("click", function() {
             editMode = true;
             const book = btn.parentNode.parentNode;
-            console.log(book)
             const bookIndex = Number(book.getAttribute("data-index"));
             const bookObject = myLibrary[bookIndex];
 
@@ -283,6 +298,7 @@ function editEvent() {
                 finishedInput.checked = false;
             }
             togglePopup("flex")
+            editIndex = bookIndex;
         })
     })
 }
