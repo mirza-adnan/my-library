@@ -302,3 +302,15 @@ function editEvent() {
         })
     })
 }
+
+// keyboard shortcuts
+window.addEventListener("keydown", function(e) {
+    if (popup.style.display === "flex") {
+        if (e.key === "Enter") {
+            submitButton.click()
+        }
+        if (e.key === "Escape") {
+            closeButton.click()
+        }
+    }
+})
