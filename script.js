@@ -43,6 +43,7 @@ const titleInput = document.querySelector("#title-input");
 const authorInput = document.querySelector("#author-input");
 const pagesInput = document.querySelector("#pages-input");
 const finishedInput = document.querySelector("input[type='checkbox']")
+const popUpTitle = document.querySelector("#popup-title");
 
 // function for validating the form
 function validateForm() {
@@ -65,7 +66,10 @@ function resetForm() {
     authorInput.value = "";
     pagesInput.value = "";
     finishedInput.checked = false;
+    popUpTitle.textContent = "New Book";
 }
+
+let editMode;
 
 // function for submit button
 const submitButton = document.querySelector(".submit");
@@ -193,6 +197,7 @@ function createBookCard() {
         deleteEvent()  // adding event listeners to the delete button of new books
         hoverEffect()
         toggleStatus()
+        editEvent()
     }
     
 }
@@ -234,13 +239,13 @@ function hoverEffect() {
 function toggleStatus() {
     const finishedButton = document.querySelectorAll(".status-button");
     finishedButton.forEach(btn => {
-        const book = btn.parentNode.parentNode;
-        const statusButton = book.querySelector(".status-button");
-        const status = book.querySelector(".status");
-        const bookIndex = Number(book.getAttribute("data-index"));
-        const statusImg = statusButton.querySelector("img");
-        
         btn.addEventListener("click", function() {
+            const book = btn.parentNode.parentNode;
+            const statusButton = book.querySelector(".status-button");
+            const status = book.querySelector(".status");
+            const bookIndex = Number(book.getAttribute("data-index"));
+            const statusImg = statusButton.querySelector("img");
+
             statusButton.classList.toggle("finished-button");
             statusButton.classList.toggle("unfinished-button")
             if (myLibrary[bookIndex].read) {
@@ -257,4 +262,27 @@ function toggleStatus() {
     });
 }
 
+function editEvent() {
+    const editButton = document.querySelectorAll(".edit-button");
+    editButton.forEach(btn => {
+        btn.addEventListener("click", function() {
+            editMode = true;
+            const book = btn.parentNode.parentNode;
+            console.log(book)
+            const bookIndex = Number(book.getAttribute("data-index"));
+            const bookObject = myLibrary[bookIndex];
 
+            popUpTitle.textContent = "Edit Book";
+
+            titleInput.value = bookObject.title;
+            authorInput.value = bookObject.author;
+            pagesInput.value = bookObject.pages;
+            if (bookObject.read) {
+                finishedInput.checked = true;
+            } else {
+                finishedInput.checked = false;
+            }
+            togglePopup("flex")
+        })
+    })
+}
