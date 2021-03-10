@@ -300,6 +300,7 @@ function toggleStatus() {
                 statusImg.setAttribute("src", "img/cross.png");
                 myLibrary[bookIndex].read = true;
             }
+            saveStorage()
         })
 
     });
