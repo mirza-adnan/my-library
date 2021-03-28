@@ -1,4 +1,4 @@
-# My Lirbary
+# My Library
 
 A simple To-Read app made using **HTML**, **CSS**, and **JavaScript**.
 
