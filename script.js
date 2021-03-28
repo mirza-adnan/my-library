@@ -4,11 +4,13 @@ if (!myLibrary) {
 }
 
 // constructor
-let Book = function(title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
+class Book {
+    constructor(title, author, pages, read) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+    }
 }
 
 createBookCard(); // creating the books when the page is first loaded
