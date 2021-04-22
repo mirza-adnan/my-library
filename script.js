@@ -46,14 +46,14 @@ const popUpTitle = document.querySelector("#popup-title");
 
 // function for validating the form
 function validateForm() {
-    if (titleInput.value === "") {
+    if (titleInput.validity.valueMissing) {
         alert("You must enter a book title");
         return false;
         
     }
 
-    if (Number(pagesInput.value) < 0) {
-        alert("Number of pages cannot be negative");
+    if (pagesInput.validity.rangeUnderflow) {
+        alert("Number of pages need to be greater than zero");
         return false;
     }
     return true;

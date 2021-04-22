@@ -48,7 +48,7 @@
         <div id="popup-content">
             <p id="close-button">+</p>
             <h2 id="popup-title">New Book</h2>
-            <form>
+            <form novalidate>
                 <div id="title" class="form-div">
                     <input type="text" id="title-input" class="input" name="title" required autocomplete="off">
                     <label for="title" class="label" id="title-label"><span id="title-content" class="span">Title</span></label>
@@ -58,7 +58,7 @@
                     <label for="author" class="label" id="author-label"><span id="author-content" class="span">Author</span></label>
                 </div>
                 <div id="pages" class="form-div">
-                    <input type="number" min="0" id="pages-input" class="input" name="pages" required autocomplete="off">
+                    <input type="number" min="1" id="pages-input" class="input" name="pages" required autocomplete="off">
                     <label for="pages" class="label" id="pages-label"><span id="pages-content" class="span">Number of Pages</span></label>
                 </div>
                 <div class="read-status">
