@@ -9,7 +9,5 @@ A simple app where you can add cards containing names of books that you have rea
 - You can mark it as finished or unfinished.
 - You can edit the cards.  
 
-## Tools I used
-- Basic HTML, CSS, JS
 
 
